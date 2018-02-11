@@ -13,11 +13,11 @@ object InputParser {
    */
 
 
-  def parse(singleCaseInputLines: Seq[String]) : (Int, Int, Seq[Customer]) = {
+  def parse(singleCaseInputLines: Seq[String]) : (Int, Seq[Customer]) = {
     //validate string
     val numColours :: numCustomers :: customers = singleCaseInputLines
     require(numCustomers.toInt == customers.size, s"${customers.size} number of customers should be ${numCustomers}")
-    (numColours.toInt, numCustomers.toInt, customers.map(extractCustomerRequirements))
+    (numColours.toInt, customers.map(extractCustomerRequirements))
   }
 
   def extractCustomerRequirements(customer: String) : Customer = {

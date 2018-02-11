@@ -14,8 +14,7 @@ class InputFileReaderSpec extends FlatSpec with Matchers {
          |2 1 0 2 0
          |1 5 0""".stripMargin.split("\n").toList
 
-    val (acutalNumberCases, inputCases) = InputFileReader.readCases(fileName)
-    acutalNumberCases should equal(expectedNumCases)
+    val inputCases = InputFileReader.readCases(fileName)
     inputCases should contain theSameElementsInOrderAs List(expectedSingleCaseInputLines)
 
   }
@@ -35,8 +34,7 @@ class InputFileReaderSpec extends FlatSpec with Matchers {
          |1 1 0
          |1 1 1""".stripMargin.split("\n").toList
 
-    val (acutalNumberCases, inputCases) = InputFileReader.readCases(fileName)
-    acutalNumberCases should equal(expectedNumCases)
+    val inputCases = InputFileReader.readCases(fileName)
     inputCases should contain theSameElementsInOrderAs List(expectedCase1, expectedCase2)
 
   }

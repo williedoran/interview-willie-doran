@@ -46,5 +46,18 @@ class RequirementCheckerSpec extends FlatSpec with Matchers {
     }
   }
 
+  "all passing requirements" should "return binary string of batch" in {
+    val customerRequirements : Seq[Customer] = List(
+      Customer(matteId = Some(1), glossIds = List()),
+      Customer(matteId = Some(2), glossIds = List(5,6)),
+      Customer(matteId = Some(4)),
+      Customer(glossIds = List(2, 3))
+    )
+    val batch = Batch(matteIds = Set(1,2,4), 6)
+    val expectedResult = batch.toBinaryRepresentation
+    val actualCheckResult = RequirementChecker.checkAllRequirements(batch, requirements = customerRequirements)
+
+    actualCheckResult should equal(expectedResult)
+  }
 
 }

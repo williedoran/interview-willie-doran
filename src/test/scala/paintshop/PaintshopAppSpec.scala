@@ -10,7 +10,7 @@ class PaintshopAppSpec extends FlatSpec with Matchers {
       "Case #1: 1 0 0 0 0",
       "Case #2: IMPOSSIBLE"
     )
-    val results: List[String] = PaintShop.run(fileName)
+    val results: List[String] = PaintShopApp.run(fileName)
     results should contain theSameElementsInOrderAs(exectedResults)
   }
 

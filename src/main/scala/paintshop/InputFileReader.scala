@@ -4,7 +4,7 @@ import scala.collection.mutable.ListBuffer
 import scala.io.Source
 
 object InputFileReader {
-  def readCases(fileName: String): (Int, List[List[String]]) = {
+  def readCases(fileName: String): List[List[String]] = {
     val lines = Source.fromURL(getClass.getResource(fileName)).getLines()
     val numOfCases = lines.next().toInt
     val cases = ListBuffer[List[String]]()
@@ -15,7 +15,7 @@ object InputFileReader {
       cases.append(numColours :: numOfCustomers :: customers)
     }
     require(numOfCases == cases.size, s"amount of cases: ${cases.size}  not what is expected $numOfCases")
-    (numOfCases, cases.toList)
+    cases.toList
   }
 
 }

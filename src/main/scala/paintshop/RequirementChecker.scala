@@ -19,8 +19,11 @@ object RequirementChecker {
     }
 
   }
-  def checkAllRequirements(batch: Batch, requirements: Seq[Customer]) : String = {
-    ""
+  def checkAllRequirements(paintBatch: Batch, requirements: Seq[Customer]) : String = {
+    requirements.forall(RequirementChecker.checkIndividualCustomerRequirements(paintBatch, _)) match {
+      case true => paintBatch.toBinaryRepresentation
+      case false => "IMPOSSIBLE"
+    }
   }
 
 }
