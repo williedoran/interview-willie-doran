@@ -10,13 +10,11 @@ class InputParserSpec extends FlatSpec with Matchers {
     val expectedCustomers : List[String] = List("1 1", "1 0 2 0","5 0")
 
     val singleCaseInputLines =
-      """
-        |5
+      """|5
         |3
         |1 1 1
         |2 1 0 2 0
-        |1 5 0
-      """.stripMargin.split("\n").toList
+        |1 5 0""".stripMargin.split("\n").toList
     val (actualNumColours, actualNumCustomers, actualCustomerRequirements) = InputParser.parse(singleCaseInputLines)
     actualNumColours should equal(expectedNumColours)
     actualNumCustomers should equal(expectedNumCustomers)
