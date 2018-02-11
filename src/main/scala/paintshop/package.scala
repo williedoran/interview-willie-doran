@@ -1,3 +1,5 @@
+import scala.collection.immutable.BitSet
+
 package object paintshop {
 
   type PaintId = Int
@@ -11,9 +13,19 @@ trait PaintRequirement {
   case class Customer(val matteId: Option[PaintId] = None, val glossIds: Seq[PaintId] = Seq.empty)
 
   case class Batch(val matteIds: Set[PaintId], val numColours : Int){
-    def toBinaryRepresentation() : String = {
+    require(matteIds.max <= numColours)
+
+    val matte = BitSet(matteIds.toList:_*)
+    val gloss = invert(matte)
+
+    lazy val toBinaryRepresentation : String = {
       (1 to numColours).map(x => if (matteIds.contains(x)) "1" else "0").mkString(" ")
     }
+
+    private def invert(bitSet: BitSet) : BitSet = {
+      BitSet(1 to numColours:_*) -- bitSet
+    }
+
   }
 
 

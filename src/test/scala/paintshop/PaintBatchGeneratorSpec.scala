@@ -35,4 +35,5 @@ class PaintBatchGeneratorSpec extends FlatSpec with Matchers {
 
   }
 
+
 }

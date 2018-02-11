@@ -2,7 +2,6 @@ package paintshop
 
 import scala.collection.mutable
 
-
 object PaintBatchGenerator {
   def generate(customerRequirements: Seq[Customer], numColours : Int) : Batch = {
      val bitVector = mutable.BitSet()
