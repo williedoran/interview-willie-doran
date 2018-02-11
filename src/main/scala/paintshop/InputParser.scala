@@ -13,20 +13,30 @@ object InputParser {
    */
 
 
-  def parse(singleCaseInputLines: Seq[String]) : (Int, Int, Seq[Seq[CustomerRequirement]]) = {
+  def parse(singleCaseInputLines: Seq[String]) : (Int, Int, Seq[Customer]) = {
     //validate string
     val numColours :: numCustomers :: customers = singleCaseInputLines
     (numColours.toInt, numCustomers.toInt, customers.map(extractCustomerRequirements))
   }
 
-  def extractCustomerRequirements(customer: String) : Seq[CustomerRequirement]= {
+  def extractCustomerRequirements(customer: String) : Customer = {
     //assert constraints that only one matte and that num colors etc are all match
-
     val numPaints :: tail = customer.split(" ").toList
-    tail.grouped(2).collect{
+    convertPaintStringToCustomerList(tail)
+  }
+
+  def convertPaintStringToCustomerList(paints: Seq[String]) : Customer ={
+    val paintRequirements = paints.grouped(2).collect{
       case List(a, "1") => Matte(a.toInt)
       case List(a, "0") => Glossy(a.toInt)
     }.toSeq
+
+    val (mattes, glosses) = paintRequirements.partition(req => req match {
+      case Matte(_) => true
+      case _ => false
+    })
+    Customer(matteIds = mattes.map(_.paintNumber),glossIds = glosses.map(_.paintNumber))
+
   }
 
 }
