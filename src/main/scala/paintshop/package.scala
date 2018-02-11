@@ -10,7 +10,9 @@ trait PaintRequirement {
 
   case class Matte(val paintNumber: PaintId) extends PaintRequirement
   case class Glossy(val paintNumber: PaintId) extends PaintRequirement
-  case class Customer(val matteId: Option[PaintId] = None, val glossIds: Seq[PaintId] = Seq.empty)
+  case class Customer(val matteId: Option[PaintId] = None, val glossIds: Seq[PaintId] = Seq.empty){
+    require(matteId.isDefined || glossIds.nonEmpty, "you must have at least one colour")
+  }
 
   case class Batch(val matteIds: Set[PaintId], val numColours : Int){
     require(matteIds.max <= numColours)

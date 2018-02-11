@@ -16,31 +16,32 @@ object InputParser {
   def parse(singleCaseInputLines: Seq[String]) : (Int, Int, Seq[Customer]) = {
     //validate string
     val numColours :: numCustomers :: customers = singleCaseInputLines
+    require(numCustomers.toInt == customers.size, s"${customers.size} number of customers should be ${numCustomers}")
     (numColours.toInt, numCustomers.toInt, customers.map(extractCustomerRequirements))
   }
 
   def extractCustomerRequirements(customer: String) : Customer = {
     //assert constraints that only one matte and that num colors etc are all match
-    val numPaints :: tail = customer.split(" ").toList
-    convertPaintStringToCustomerList(tail)
+    val numPaints :: paintPairString = customer.split(" ").toList
+    require(numPaints.toInt == paintPairString.size / 2, "expected number of customer paints is inconsistent with actual")
+    convertPaintStringToCustomerList(paintPairString)
   }
 
   def convertPaintStringToCustomerList(paints: Seq[String]) : Customer ={
-    val paintRequirements = paints.grouped(2).collect{
-      case List(a, "1") => Matte(a.toInt)
-      case List(a, "0") => Glossy(a.toInt)
-    }.toList
-    //should probably just do a group by key here
+    val (mattes, glosses) = paints
+        .grouped(2)
+        .collect{
+          case List(matteIndex, "1") => ("1", matteIndex.toInt)
+          case List(glossIndex, "0") => ("0", glossIndex.toInt)
+        }
+        .partition(x => x._1 == "1")
 
-    val (mattes, glosses) = paintRequirements.partition(req => req match {
-      case Matte(_) => true
-      case _ => false
-    })
-    val matteId = mattes match {
+    val matte = mattes.map(_._2).toList match {
       case Nil => None
-      case x :: Nil => Some(x.paintNumber)
+      case x :: Nil => Some(x)
+      case _ => throw new RuntimeException("There should only be max one matte per customer")
     }
-    Customer(matteId = matteId ,glossIds = glosses.map(_.paintNumber))
+    Customer(matteId = matte ,glossIds = glosses.map(_._2).toList)
 
   }
 

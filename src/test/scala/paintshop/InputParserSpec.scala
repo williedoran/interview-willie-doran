@@ -26,4 +26,15 @@ class InputParserSpec extends FlatSpec with Matchers {
 
   }
 
+  "parser" should "throw exception on malformed customer input" in {
+    an[IllegalArgumentException] shouldBe  thrownBy {
+      InputParser.extractCustomerRequirements("3 1 0 2 0")
+    }
+  }
+
+  "parser" should "correctly parse a customer from customer input" in {
+    val expectedCustomer = Customer(matteId = Some(3), glossIds = List(1,2))
+    val actualCustomer = InputParser.extractCustomerRequirements("3 1 0 2 0 3 1")
+    actualCustomer should equal(expectedCustomer)
+  }
 }
