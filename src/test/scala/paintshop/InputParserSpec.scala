@@ -7,7 +7,7 @@ class InputParserSpec extends FlatSpec with Matchers {
   "input parser" should "read customers list from individual case" in {
     val expectedNumColours : Int = 5
     val expectedNumCustomers : Int = 3
-    val expectedCustomers : List[String] = List("1 1", "1 0 2 0","5 0")
+    val expectedCustomers : Seq[Seq[CustomerRequirement]] = List(List(Matte(1)), List(Glossy(1),Glossy(2)), List(Glossy(5)))
 
     val singleCaseInputLines =
       """|5
