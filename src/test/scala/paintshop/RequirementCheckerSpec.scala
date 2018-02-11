@@ -12,7 +12,7 @@ class RequirementCheckerSpec extends FlatSpec with Matchers {
     )
     val expectedResults = List(true, true, true)
     val batch = Batch(matteIds = Set(1), 5)
-    val results = customerRequirements.map(req =>  RequirementChecker.checkRequirementsHold(batch, req))
+    val results = customerRequirements.map(req =>  RequirementChecker.checkIndividualCustomerRequirements(batch, req))
     results should contain theSameElementsAs(expectedResults)
   }
 
@@ -23,7 +23,7 @@ class RequirementCheckerSpec extends FlatSpec with Matchers {
     )
     val expectedResults = List(true, false)
     val batch = Batch(matteIds = Set(1), 1)
-    val results = customerRequirements.map(req =>  RequirementChecker.checkRequirementsHold(batch, req))
+    val results = customerRequirements.map(req =>  RequirementChecker.checkIndividualCustomerRequirements(batch, req))
     results should contain theSameElementsAs(expectedResults)
   }
 
@@ -36,7 +36,7 @@ class RequirementCheckerSpec extends FlatSpec with Matchers {
     )
     val expectedResults = List(true, true,true, true)
     val batch = Batch(matteIds = Set(1,2,4), 6)
-    val results = customerRequirements.map(req =>  RequirementChecker.checkRequirementsHold(batch, req))
+    val results = customerRequirements.map(req =>  RequirementChecker.checkIndividualCustomerRequirements(batch, req))
     results should contain theSameElementsAs(expectedResults)
   }
 
@@ -45,4 +45,6 @@ class RequirementCheckerSpec extends FlatSpec with Matchers {
       Batch(matteIds = Set(1,2,4,7), 6)
     }
   }
+
+
 }
