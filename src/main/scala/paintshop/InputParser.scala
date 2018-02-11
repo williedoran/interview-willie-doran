@@ -29,13 +29,18 @@ object InputParser {
     val paintRequirements = paints.grouped(2).collect{
       case List(a, "1") => Matte(a.toInt)
       case List(a, "0") => Glossy(a.toInt)
-    }.toSeq
+    }.toList
+    //should probably just do a group by key here
 
     val (mattes, glosses) = paintRequirements.partition(req => req match {
       case Matte(_) => true
       case _ => false
     })
-    Customer(matteIds = mattes.map(_.paintNumber),glossIds = glosses.map(_.paintNumber))
+    val matteId = mattes match {
+      case Nil => None
+      case x :: Nil => Some(x.paintNumber)
+    }
+    Customer(matteId = matteId ,glossIds = glosses.map(_.paintNumber))
 
   }
 

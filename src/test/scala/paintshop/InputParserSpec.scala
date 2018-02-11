@@ -8,7 +8,7 @@ class InputParserSpec extends FlatSpec with Matchers {
     val expectedNumColours : Int = 5
     val expectedNumCustomers : Int = 3
     val expectedCustomers : Seq[Customer] = List(
-      Customer(matteIds = List(1)),
+      Customer(matteId = Some(1)),
       Customer(glossIds = List(1,2)),
       Customer(glossIds = List(5))
     )
