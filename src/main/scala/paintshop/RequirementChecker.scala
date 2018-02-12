@@ -19,11 +19,8 @@ object RequirementChecker {
     }
 
   }
-  def checkAllRequirements(paintBatch: Batch, requirements: Seq[Customer]) : String = {
-    requirements.forall(RequirementChecker.checkIndividualCustomerRequirements(paintBatch, _)) match {
-      case true => paintBatch.toBinaryRepresentation
-      case false => "IMPOSSIBLE"
-    }
+  def checkAllRequirements(paintBatch: Batch, requirements: Seq[Customer]) : Boolean = {
+    requirements.forall(RequirementChecker.checkIndividualCustomerRequirements(paintBatch, _))
   }
 
 }

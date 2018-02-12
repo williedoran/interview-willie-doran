@@ -85,10 +85,9 @@ class RequirementCheckerSpec extends FlatSpec with Matchers {
       Customer(glossIds = List(2, 3))
     )
     val batch = Batch(matteIds = Set(1,2,4), 6)
-    val expectedResult = batch.toBinaryRepresentation
     val actualCheckResult = RequirementChecker.checkAllRequirements(batch, requirements = customerRequirements)
 
-    actualCheckResult should equal(expectedResult)
+    actualCheckResult should equal(true)
   }
 
 }
