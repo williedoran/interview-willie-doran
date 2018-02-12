@@ -28,6 +28,17 @@ trait PaintRequirement {
       BitSet(1 to numColours:_*) -- bitSet
     }
 
+    def checkIfMatteRequestSatisfied(matteId: PaintId) = {
+      (matte & BitSet(matteId)) == BitSet(matteId)
+    }
+
+    def checkIfAtLeastOneGlossSatisfied(glossIds: Seq[PaintId]) = {
+      (gloss & BitSet(glossIds: _*)) != BitSet.empty
+    }
+
+
+
+
   }
 
 
