@@ -40,6 +40,37 @@ class RequirementCheckerSpec extends FlatSpec with Matchers {
     results should contain theSameElementsAs(expectedResults)
   }
 
+  "requirement" should "return true for minimal batch" in {
+    val customerRequirements : Seq[Customer] = List(
+      Customer(matteId = Some(1)),
+      Customer(glossIds = List(1,2)),
+      Customer(glossIds = List(5)),
+      Customer(matteId = Some(4), glossIds = List(5))
+    )
+    val expectedResults = List(true, true,true, true)
+
+    val batch = Batch(Set(1), 5)
+    val results = customerRequirements.map(req =>  RequirementChecker.checkIndividualCustomerRequirements(batch, req))
+    results should contain theSameElementsAs(expectedResults)
+
+  }
+
+  "requirement" should "return fail for final case minimal batch" in {
+    val customerRequirements : Seq[Customer] = List(
+      Customer(matteId = Some(1)),
+      Customer(glossIds = List(1,2)),
+      Customer(glossIds = List(5)),
+      Customer(matteId = Some(4), glossIds = List(5)),
+        Customer(matteId = Some(2), glossIds = List(1))
+    )
+    val expectedResults = List(true, true,true, true, false)
+
+    val batch = Batch(Set(1), 5)
+    val results = customerRequirements.map(req =>  RequirementChecker.checkIndividualCustomerRequirements(batch, req))
+    results should contain theSameElementsAs(expectedResults)
+
+  }
+
   "batch create" should "not have higher color ids than num colours"  in {
     an[IllegalArgumentException] shouldBe thrownBy {
       Batch(matteIds = Set(1,2,4,7), 6)

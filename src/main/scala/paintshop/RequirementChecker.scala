@@ -14,7 +14,7 @@ object RequirementChecker {
     }
 
     customerRequirement match {
-      case Customer(Some(matteId), _) => checkIfMatteRequestSatisfied(matteId)
+      case Customer(Some(matteId), glossIds) => checkIfMatteRequestSatisfied(matteId) | checkIfAtLeastOneGlossSatisfied(glossIds)
       case Customer(None, glossIds) => checkIfAtLeastOneGlossSatisfied(glossIds)
     }
 

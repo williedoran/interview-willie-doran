@@ -9,7 +9,7 @@ object PaintShopApp extends App {
       .map {
         case (singleCase, index) => {
           val (numColours, customers) = InputParser.parse(singleCase)
-          val paintBatch = PaintBatchGenerator.generate(customers, numColours)
+          val paintBatch = PaintBatchGenerator.generateInitialBatch(customers, numColours)
           s"Case #${index + 1}: ${RequirementChecker.checkAllRequirements(paintBatch, customers)}"
         }
       }
